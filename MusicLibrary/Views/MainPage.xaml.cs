@@ -95,5 +95,50 @@ namespace MusicLibrary
             searchText.Text = searchText.PlaceholderText;
             ViewModel.LoadSongs();
         }
+
+        private async void VoiceSearchButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Create an instance of SpeechRecognizer.
+                var speechRecognizer = new Windows.Media.SpeechRecognition.SpeechRecognizer();
+
+                // Listen for audio input issues.
+                //speechRecognizer.RecognitionQualityDegrading += speechRecognizer_RecognitionQualityDegrading;
+
+                // Add a web search grammar to the recognizer.
+                var webSearchGrammar = new Windows.Media.SpeechRecognition.SpeechRecognitionTopicConstraint(Windows.Media.SpeechRecognition.SpeechRecognitionScenario.WebSearch, "webSearch");
+
+
+                speechRecognizer.UIOptions.AudiblePrompt = "Say what you want to search for...";
+                speechRecognizer.UIOptions.ExampleText = @"Ex. 'Play Rahman songs'";
+                speechRecognizer.Constraints.Add(webSearchGrammar);
+
+                // Compile the constraint.
+                await speechRecognizer.CompileConstraintsAsync();
+
+                // Start recognition.
+                Windows.Media.SpeechRecognition.SpeechRecognitionResult speechRecognitionResult = await speechRecognizer.RecognizeWithUIAsync();
+                //await speechRecognizer.RecognizeWithUIAsync();
+
+                // Do something with the recognition result.
+                var messageDialog = new Windows.UI.Popups.MessageDialog(speechRecognitionResult.Text, "Text spoken");
+                await messageDialog.ShowAsync();
+            }
+            catch (Exception err)
+            {
+                // Define a variable that holds the error for the speech recognition privacy policy. 
+                // This value maps to the SPERR_SPEECH_PRIVACY_POLICY_NOT_ACCEPTED error, 
+                // as described in the Windows.Phone.Speech.Recognition error codes section later on.
+                const int privacyPolicyHResult = unchecked((int)0x80045509);
+
+                // Check whether the error is for the speech recognition privacy policy.
+                if (err.HResult == privacyPolicyHResult)
+                {
+                    var messageDialog = new Windows.UI.Popups.MessageDialog("You will need to accept the speech privacy policy in order to use speech recognition in this app.", "Error");
+                    await messageDialog.ShowAsync();
+                }
+            }
+        }
     }
 }

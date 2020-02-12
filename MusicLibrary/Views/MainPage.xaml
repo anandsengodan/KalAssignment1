@@ -18,7 +18,10 @@
             <Button Name="searchButton" RelativePanel.RightOf="clearButton" Height="40" Width="50" Margin="0,8,5,0" Background="White" Click="SearchButton_OnClick">
                 <Image Source="../Assets/search.png" Stretch="UniformToFill"></Image>
             </Button>
-            <ComboBox Name="albumComboBox" RelativePanel.RightOf="searchButton" Margin="10,14,0, 10" Width="200" PlaceholderText="Filter by Album" ItemsSource="{x:Bind ViewModel.Albums}" SelectionChanged="AlbumComboBox_OnSelectionChanged"></ComboBox>
+            <Button Name="voiceSearchButton" RelativePanel.RightOf="searchButton" Height="40" Width="50" Margin="0,8,5,0" Background="White" Click="VoiceSearchButton_OnClick">
+                <Image Source="../Assets/Microphone.png"  Stretch="UniformToFill"></Image>
+            </Button>
+            <ComboBox Name="albumComboBox" RelativePanel.RightOf="voiceSearchButton" Margin="10,14,0, 10" Width="200" PlaceholderText="Filter by Album" ItemsSource="{x:Bind ViewModel.Albums}" SelectionChanged="AlbumComboBox_OnSelectionChanged"></ComboBox>
             <ComboBox Name="artistComboBox" RelativePanel.RightOf="albumComboBox" Margin="10,14,0, 10" Width="200" PlaceholderText="Filter by Artist" ItemsSource="{x:Bind ViewModel.Artists}" SelectionChanged="ArtistComboBox_OnSelectionChanged"></ComboBox>
         </RelativePanel>
         <Canvas Grid.Row="2">

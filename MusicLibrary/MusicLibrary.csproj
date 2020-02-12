@@ -137,6 +137,7 @@
   <ItemGroup>
     <Content Include="Assets\clear_grey_18x18.png" />
     <Content Include="Assets\clear_grey_36x36.png" />
+    <Content Include="Assets\Microphone.png" />
     <Content Include="Assets\Songs\DarbarAlbumArt.png" />
     <Content Include="Assets\search.png" />
     <Content Include="Assets\Songs\Achcham-Enbathu-Madamaiyada.jpg" />
